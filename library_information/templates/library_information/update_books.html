@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Books - Digital Book Hub</title>
+
+    <link rel="stylesheet"
+          href="{% static 'library_information/update_books.css' %}">
+</head>
+<body>
+
+    <header class="header-div">
+        <img src="{% static 'images/image.png' %}" alt="Book image">
+        <h1>Digital Book Hub</h1>
+    </header>
+
+    <main class="content">
+
+        <h2>Update Books</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Book Name</th>
+                        <th>Author Name</th>
+                        <th>Quantity</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for book in books %}
+                    <tr>
+                        <td>{{ book.Book_id }}</td>
+                        <td>{{ book.Book_name }}</td>
+                        <td>{{ book.Author_name }}</td>
+                        <td>{{ book.Quantity }}</td>
+                        <td>
+                            <a class="edit-button"
+                               href="{% url 'edit_book' book.Book_id %}">
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">No books available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{% url 'books' %}" class="back-button">
+            Back to Books
+        </a>
+
+    </main>
+
+</body>
+</html>

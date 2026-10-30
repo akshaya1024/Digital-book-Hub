@@ -1,0 +1,255 @@
+
+/* {% load static %} */
+/*
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #222;
+}
+.header-div{
+    height: 100px;
+    background-color: brown;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.header-div img{
+    height: 50px;
+    width: 50px;
+    margin: 0px 10px;
+}
+.header-div h1{
+    display: inline;
+}
+.content {
+    min-height: 500px;
+    width: 100%;
+    padding: 30px 20px;
+    background-image: url("/static/images/background-image.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.content marquee{
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;   
+}
+.content h2{
+    padding-left:150px ;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+.content button{
+    margin:0 0 10px 280px ;
+    height: 50px;
+    width: 200px;
+    background-color: rgb(11, 129, 29);
+    border: none;
+    border-radius: 5px;
+    
+}
+.content a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+} */
+
+/* {% load static %} */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #222;
+}
+
+/* Header */
+
+.header-div {
+    min-height: 100px;
+    background-color: brown;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 15px;
+    width: 100%;
+    gap: 10px;
+}
+
+.header-div img {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+
+.header-div h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+/* Main Content */
+
+.content {
+    min-height: 500px;
+    width: 100%;
+    padding: 30px 20px;
+    background-image: url("/static/images/background-image.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.content marquee {
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.content h2 {
+    padding-left: 20%;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.content button {
+    display: block;
+    margin: 0  25%;
+    min-height: 50px;
+    width: 200px;
+    max-width: 100%;
+    background-color: rgb(11, 129, 29);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.content button:hover {
+    background-color: darkgreen;
+}
+
+.content a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+/* Tablet Responsive */
+
+@media (max-width: 768px) {
+
+    .header-div {
+        min-height: 85px;
+    }
+
+    .header-div img {
+        height: 40px;
+        width: 40px;
+    }
+
+    .header-div h1 {
+        font-size: 23px;
+        text-align: center;
+    }
+
+    .content {
+        padding: 25px 15px;
+        min-height: 500px;
+    }
+
+    .content h2 {
+        padding-left: 0;
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .content marquee {
+        font-size: 17px;
+    }
+}
+
+/* Mobile Responsive Fix */
+
+@media screen and (max-width: 480px) {
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .header-div {
+        width: 100%;
+        min-height: 75px;
+        height: auto;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header-div img {
+        width: 35px;
+        height: 35px;
+        margin: 0 5px;
+    }
+
+    .header-div h1 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .content {
+        width: 100%;
+        min-height: 500px;
+        padding: 20px 10px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .content marquee {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px 0;
+    }
+
+    .content h2 {
+        padding: 0 !important;
+        margin: 25px 0 35px;
+        font-size: 19px;
+        text-align: center;
+    }
+
+    .content button {
+        display: block;
+        width: 200px;
+        max-width: 90%;
+        height: 45px;
+        margin: 0 auto 12px !important;
+    }
+
+    .content a {
+        font-size: 15px;
+    }
+}

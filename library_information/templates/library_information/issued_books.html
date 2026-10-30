@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issued Books</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px;
+            font-family: Arial, sans-serif;
+            background: #f3f5f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #263b70;
+        }
+
+        .top-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 11px 18px;
+            background: #263b70;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        th, td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #263b70;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f5f8ff;
+        }
+
+        .status-issued {
+            color: #b36b00;
+            font-weight: bold;
+        }
+
+        .status-returned {
+            color: #16834a;
+            font-weight: bold;
+        }
+
+        .return-button {
+            padding: 8px 13px;
+            border: none;
+            background: #16834a;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .message {
+            padding: 12px;
+            background: #e9f5ff;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 25px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>Issued Books History</h1>
+
+    <a href="{% url 'issue_book' %}" class="top-link">
+        + Issue New Book
+    </a>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Issue ID</th>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Return Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for issue in issues %}
+                <tr>
+                    <td>{{ issue.Issue_id }}</td>
+
+                    <td>{{ issue.Student_id }}</td>
+                    <td>{{ issue.Student.Student_name }}</td>
+
+                    <td>{{ issue.Book_id }}</td>
+                    <td>{{ issue.Book.Book_name }}</td>
+
+                    <td>{{ issue.Issue_date|date:"d-m-Y" }}</td>
+                    <td>{{ issue.Due_date|date:"d-m-Y" }}</td>
+
+                    <td>
+                        {% if issue.Return_date %}
+                            {{ issue.Return_date|date:"d-m-Y" }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if issue.Status == "Issued" %}
+                            <span class="status-issued">Issued</span>
+                        {% else %}
+                            <span class="status-returned">Returned</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if issue.Status == "Issued" %}
+                            <form
+                                method="post"
+                                action="{% url 'return_book' issue.Issue_id %}"
+                                onsubmit="return confirm('Are you sure you want to return this book?');"
+                            >
+                                {% csrf_token %}
+                                <button type="submit" class="return-button">
+                                    Return
+                                </button>
+                            </form>
+                        {% else %}
+                            Completed
+                        {% endif %}
+                    </td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td colspan="10" class="empty">
+                        No book issue records found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

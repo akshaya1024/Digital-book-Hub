@@ -1,0 +1,34 @@
+
+     {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Digital Book Hub{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'library_information/mainpage.css' %}">
+</head>
+<body>
+    
+        <div class="header-div">
+            <img  src="{% static 'images/image.png' %} " alt="Book image" >
+            <h1>Digital Book Hub</h1>
+        </div>
+           
+    
+
+    <main class="content">
+        {% block content %} 
+           
+                <marquee>Welcome to the Digital Book Hub Library</marquee><br>
+                <h2> This is Portal Only Used For Admin Users    </h2>
+                <button><a href="{% url 'books' %}">Books</a></button><br>
+                <button><a href="{% url 'students' %}">Students</a></button><br>
+                <button><a href="{% url 'issue_book' %}">Book Issue & Return</a></button><br>
+
+           
+        {% endblock %}
+    </main>
+</body>
+</html>

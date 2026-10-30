@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Delete Student Information Digital Book Hub</title>
+
+    <link rel="stylesheet"
+          href="{% static 'library_information/delete_books.css' %}">
+</head>
+<body>
+
+    <header class="header-div">
+        <img src="{% static 'images/image.png' %}" alt="Book image">
+        <h1>Digital Book Hub</h1>
+    </header>
+
+    <main class="content">
+
+        <h2>Delete Student Information</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Email</th>
+                        <th>Phone No</th>
+                        <th>Department</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.Student_id }}</td>
+                        <td>{{ student.Student_name }}</td>
+                        <td>{{ student.Email }}</td>
+                        <td>{{ student.PhoneNo }}</td>
+                        <td>{{ student.Department }}</td>
+                        <td>
+                            <a class="delete-button"
+                               href="{% url 'confirm_student_delete' student.Student_id %}">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">No Student Information available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{% url 'students' %}" class="back-button">
+            Back to Students
+        </a>
+
+    </main>
+
+</body>
+</html>

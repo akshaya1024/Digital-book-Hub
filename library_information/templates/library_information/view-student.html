@@ -1,0 +1,61 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Students - Digital Book Hub</title>
+
+    <link rel="stylesheet" href="{% static 'library_information/views-books.css' %}">
+</head>
+<body>
+
+    <header class="header-div">
+        <img src="{% static 'images/image.png' %}" alt="Book image">
+        <h1>Digital Book Hub</h1>
+    </header>
+
+    <main class="content">
+
+        <h2>Available Books</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th> Email</th>
+                        <th>Phone No </th>
+                        <th>Department</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for students in student %}
+                    <tr>
+                        <td>{{ students.Student_id }}</td>
+                        <td>{{ students.Student_name }}</td>
+                        <td>{{ students.Email }}</td>
+                        <td>{{ students.PhoneNo }}</td>
+                        <td>{{ students.Department }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="no-data">
+                            No Student Reigister in the database.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{% url 'students' %}" class="back-button">Back to Students</a>
+
+    </main>
+
+</body>
+</html>

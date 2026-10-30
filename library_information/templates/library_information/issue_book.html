@@ -1,0 +1,286 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Book</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px;
+            font-family: Arial, sans-serif;
+            background: #f3f5f9;
+            color: #222;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 25px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1, h2 {
+            color: #263b70;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button, .link-button {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 11px 18px;
+            border: none;
+            border-radius: 6px;
+            background: #263b70;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        button:hover, .link-button:hover {
+            background: #16264c;
+        }
+
+        .issue-button {
+            width: 100%;
+            background: #16834a;
+            font-size: 16px;
+        }
+
+        .issue-button:hover {
+            background: #106538;
+        }
+
+        .message {
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            background: #e9f5ff;
+        }
+
+        .error {
+            color: #b00020;
+        }
+
+        .success {
+            color: #14753b;
+        }
+
+        .details {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f0f7ff;
+            border-radius: 8px;
+            line-height: 1.8;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>Library Management System</h1>
+
+    <div class="nav">
+        <a href="{% url 'issued_books' %}" class="link-button">
+            View Issued Books
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="card" id="student-search">
+        <h2>Search Student</h2>
+
+        <form method="post" action="{% url 'search_student' %}">
+            {% csrf_token %}
+
+            <label for="search_student_id">Student ID</label>
+            <input
+                type="number"
+                id="search_student_id"
+                name="student_id"
+                min="1"
+                required
+                placeholder="Enter Student ID"
+            >
+
+            <button type="submit">Search Student</button>
+        </form>
+
+        {% if student %}
+            <div class="details">
+                <strong>Student Name:</strong>
+                {{ student.Student_name }}
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+
+    <div class="card" id="book-search">
+        <h2>Search Book</h2>
+
+        <form method="post" action="{% url 'search_book' %}">
+            {% csrf_token %}
+
+            <label for="search_book_id">Book ID</label>
+            <input
+                type="number"
+                id="search_book_id"
+                name="book_id"
+                min="1"
+                required
+                placeholder="Enter Book ID"
+            >
+
+            <button type="submit">Search Book</button>
+        </form>
+
+        {% if book %}
+            <div class="details">
+                <strong>Book Name:</strong>
+                {{ book.Book_name }}<br>
+
+                <strong>Available Quantity:</strong>
+                {{ book.Quantity }}
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h2>Issue a Book</h2>
+
+        <form method="post" action="{% url 'issue_book' %}">
+            {% csrf_token %}
+
+            <label for="student_id">Student ID</label>
+            <input
+                type="number"
+                id="student_id"
+                name="student_id"
+                min="1"
+                required
+                placeholder="Enter Student ID"
+            >
+
+            <label for="book_id">Book ID</label>
+            <input
+                type="number"
+                id="book_id"
+                name="book_id"
+                min="1"
+                required
+                placeholder="Enter Book ID"
+            >
+
+            <button type="submit" class="issue-button">
+                Issue Book
+            </button>
+        </form>
+
+        <p>
+            Enter the Student ID and Book ID, then click Issue Book.
+        </p>
+    </div>
+
+    
+    
+</div>
+<script>
+    // Search Student form
+    const studentSearchForm = document.querySelector(
+        'form[action="{% url "search_student" %}"]'
+    );
+
+    if (studentSearchForm) {
+        studentSearchForm.addEventListener("submit", function () {
+            sessionStorage.removeItem("searchedStudentId");
+        });
+    }
+
+    // Search Book form
+    const bookSearchForm = document.querySelector(
+        'form[action="{% url "search_book" %}"]'
+    );
+
+    if (bookSearchForm) {
+        bookSearchForm.addEventListener("submit", function () {
+            sessionStorage.removeItem("searchedBookId");
+        });
+    }
+
+    window.addEventListener("load", function () {
+        const searchType = "{{ search_type|default:'' }}";
+
+        if (searchType === "student") {
+            document.getElementById("student-search")
+                .scrollIntoView();
+        } else if (searchType === "book") {
+            document.getElementById("book-search")
+                .scrollIntoView();
+        }
+    });
+</script>
+</body>
+</html>

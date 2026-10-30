@@ -1,0 +1,36 @@
+
+     {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Book Management {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'library_information/mainpage.css' %}">
+</head>
+<body>
+    
+        <div class="header-div">
+            <img  src="{% static 'images/image.png' %} " alt="Book image" >
+            <h1>Digital Book Hub</h1>
+        </div>
+           
+    
+
+    <main class="content">
+        {% block content %} 
+           
+                <marquee>Welcome to the Student Information Management</marquee><br>
+                <h2 style="margin-left: 50px;"> Student Information Management</h2>
+                <button><a href="{% url 'view_student' %}">View Student</a></button><br>
+                <button><a href="{% url 'add_student' %}">Add Student</a></button><br>
+                <button><a href="{% url 'update_student' %}">Update Student</a></button><br>
+                <button><a href="{% url 'delete_student' %}">Delete Student</a></button>
+                
+
+           
+        {% endblock %}
+    </main>
+</body>
+</html>

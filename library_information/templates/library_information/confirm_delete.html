@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Confirm Delete - Digital Book Hub</title>
+
+    <link rel="stylesheet"
+          href="{% static 'library_information/add_book.css' %}">
+</head>
+<body>
+
+    <header class="header-div">
+        <img src="{% static 'images/image.png' %}" alt="Book image">
+        <h1>Digital Book Hub</h1>
+    </header>
+
+    <main class="content">
+
+        <div class="form-container">
+            <h2>Confirm Delete</h2>
+
+            <p>
+                Are you sure you want to delete
+                <strong>{{ book.Book_name }}</strong>?
+            </p>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <button type="submit" style="background-color: #c62828;">
+                    Yes, Delete Book
+                </button>
+            </form>
+
+            <a href="{% url 'delete_books' %}" class="back-button">
+                Cancel
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>

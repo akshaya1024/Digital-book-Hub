@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book - Digital Book Hub</title>
+
+    <link rel="stylesheet" href="{% static 'library_information/add_book.css' %}">
+</head>
+<body>
+
+    <header class="header-div">
+        <img src="{% static 'images/image.png' %}" alt="Book image">
+        <h1>Digital Book Hub</h1>
+    </header>
+
+    <main class="content">
+
+        <div class="form-container">
+            <h2>Add New Book</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <label for="Book_name">Book Name</label>
+                <input
+                    type="text"
+                    id="Book_name"
+                    name="Book_name"
+                    placeholder="Enter book name"
+                    required
+                >
+
+                <label for="Author_name">Author Name</label>
+                <input
+                    type="text"
+                    id="Author_name"
+                    name="Author_name"
+                    placeholder="Enter author name"
+                    required
+                >
+
+                <label for="Quantity">Quantity</label>
+                <input
+                    type="number"
+                    id="Quantity"
+                    name="Quantity"
+                    placeholder="Enter quantity"
+                    min="0"
+                    required
+                >
+
+                <button type="submit">Save Book</button>
+            </form>
+
+            <a href="{% url 'books' %}" class="back-button">
+                Back to Books
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>
